@@ -40,16 +40,27 @@ def index(request):
 
 def wyswietl_dane(request):
     if request.method == "POST":
-        wybrany = request.POST['wybrany']
+        wybrany = request.POST['wybor']
         db = client['skibidi']
         kolekcja = db['Klasy']
         wynik = kolekcja.find({"NazwaKlasy": wybrany})
+        klasy = kolekcja.find()
 
         wynik_list = list(wynik)
 
         for doc in wynik_list:
             doc['_id'] = str(doc['_id'])
 
-        return render(request, 'wyswietl.html', {"result": wynik_list})
+        return render(request, 'wyswietl.html', {"result": wynik_list, "opcje" : klasy})
     else:
-        return render(request, 'wyswietl.html')
+
+        db = client['skibidi']
+        kolekcja = db['Klasy']
+
+        klasy = kolekcja.find()
+
+        klasy_list = list(klasy)
+
+        for doc in klasy_list:
+            doc['_id'] = str(doc['_id'])
+        return render(request, 'wyswietl.html', {"opcje" : klasy_list})

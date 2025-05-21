@@ -9,8 +9,23 @@
 
 </head>
 <body>
+    <form method="POST" action="{% url 'wyswietl' %}">
+      {% csrf_token %}
+
+      <label for="wybor">Select a class:</label>
+      <select name="wybor" id="wybor">
+
+          {% for opcja in opcje %}
+        <option value='{{ opcja.NazwaKlasy }}'>{{ opcja.NazwaKlasy }}</option>
+
+          {% endfor %}
+      </select>
+
+      <button type="submit">Wyślij</button>
+    </form>
     {% for klasy in result %}
     <h2>{{ klasy.NazwaKlasy }}</h2>
+
     <ul>
         {% for uczen in klasy.Uczniowie %}
             <li>{{ uczen.Imie }} {{ uczen.Nazwisko }}</li>
