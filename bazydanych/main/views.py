@@ -52,12 +52,19 @@ def wyswietl_dane(request):
 
         return render(request, 'wyswietl.html', {"result": wynik_list})
     else:
-        return render(request, 'wyswietl.html')
+        db = client['skibidi']
+        kolekcja = db['Klasy']
+
+        wynik = kolekcja.find()
+        wynik_list = list(wynik)
+
+        return render(request, 'wyswietl.html', {"result": wynik_list})
 
 def insert(request):
     if request.method == "POST":
-        db = client["Klasy"]
-        kolekcja = db['NazwaKlasy']
+        db = client["skibidi"]
+        kolekcja = db['Klasy']
+
 
 
     return render(request, 'insert.html')
