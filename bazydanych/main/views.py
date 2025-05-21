@@ -1,10 +1,7 @@
 from django.shortcuts import render
-import pymongo
+from pymongo import MongoClient
 
-
-connection_string = "mongodb://localhost:27017"
-
-client = pymongo.MongoClient(connection_string)
+client = MongoClient('mongodb://localhost:27017/')
 
 def bazy_danych():
     return client.list_database_names()
@@ -37,10 +34,13 @@ def index(request):
     return render(request, 'index.html')
 
 def wyswietl_dane(request):
-    if request.method == "POST":
-        kolekcja = request.wybrana_kolekcja
-        baza_danych = request.wybrana_baza_danych
-        wynik = find("", kolekcja, baza_danych)
-        return render(request, 'index.html', {"result": wynik})
+    if request.method == "GET":
+        # kolekcja = request.wybrana_kolekcja
+        # baza_danych = request.wybrana_baza_danych
+        db = client['skibidi']
+        kolekcja = db['Klasy']['NazwaKlasy']
+        wynik = kolekcja.find({})
+        wynik_list = list(wynik)
+        return render(request, 'wyswietl.html', {"result": wynik_list})
     else:
-        return render(request, 'index.html')
+        return render(request, 'wyswietl.html')
