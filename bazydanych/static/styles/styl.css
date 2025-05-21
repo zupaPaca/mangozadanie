@@ -1,0 +1,9 @@
+.glow-border {
+  border: 2px solid rgba(0, 88, 153, 0.85) !important; /* wymuszona delikatna ramka */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glow-border:hover {
+  border-color: rgba(3, 109, 188, 0.93) !important; /* jasna ramka na hover */
+  box-shadow: 0 0 8px 3px rgba(3, 109, 188, 0.93) !important; /* efekt glow */
+}
