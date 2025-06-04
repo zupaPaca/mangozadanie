@@ -64,3 +64,48 @@ def wyswietl_dane(request):
         for doc in klasy_list:
             doc['_id'] = str(doc['_id'])
         return render(request, 'wyswietl.html', {"opcje" : klasy_list})
+
+
+def drop(request):
+    if request.method == "POST":
+        wybrany = request.POST['wybor']
+        db = client['skibidi']
+        kolekcja = db['Klasy']
+        wynik = kolekcja.find({"NazwaKlasy": wybrany})
+        klasy = kolekcja.find()
+
+        wynik_list = list(wynik)
+
+        for doc in wynik_list:
+            doc['_id'] = str(doc['_id'])
+
+        return render(request, 'usun.html', {"result": wynik_list, "opcje" : klasy})
+    else:
+
+        db = client['skibidi']
+        kolekcja = db['Klasy']
+
+        klasy = kolekcja.find()
+
+        klasy_list = list(klasy)
+
+        for doc in klasy_list:
+            doc['_id'] = str(doc['_id'])
+        return render(request, 'usun.html', {"opcje" : klasy_list})
+
+
+def dropuczen(request, iducznia):
+    if request.method == "POST":
+        db = client['skibidi']
+        kolekcja = db['Uczniowie']
+
+
+        result = kolekcja.delete_one({"id": iducznia})
+
+        if result.deleted_count > 0:
+            message = "Uczeń został usunięty."
+        else:
+            message = "Nie znaleziono ucznia o podanym id."
+
+        return render(request, 'usun_ucz.html', {"message": message})
+

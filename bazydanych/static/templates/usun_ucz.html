@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST">
+    {% CSRF_TOKEN %}
+    <h1>Czy napewno chcesz usunąć ucznia {{ uczen.Imie }} {{ uczen.Nazwisko }}?</h1><br>
+    <a href="/">Wróć</a> <button type="submit">Tak</button>
+</form>
+</body>
+</html>
