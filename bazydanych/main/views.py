@@ -55,8 +55,6 @@ def wyswietl_dane(request):
     else:
         return render(request, 'wyswietl.html')
 
-        return render(request, 'wyswietl.html', {"result": wynik_list})
-
 def insert(request):
     if request.method == "POST":
         db = client["skibidi"]
