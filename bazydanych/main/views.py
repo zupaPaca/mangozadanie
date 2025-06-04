@@ -56,27 +56,48 @@ def wyswietl_dane(request):
         return render(request, 'wyswietl.html')
 
 def insert(request):
+    db = client["skibidi"]
+    Klasy = db['Klasy']
+    Uczniowie = db['Uczniowie']
+
+    l = [klas for klas in Klasy.find({}, {"klasy": 1, "_id": 0})]
+    data = []
+    for dat in l:
+        data.append(dat.values())
+
+    HTML_data = {"data": data}
+
     if request.method == "POST":
-        db = client["skibidi"]
-        kolekcja = db['Klasy']
+        if request.POST['form_id'] == 'klasa':
+            id_klasy = int(request.POST.get('id_klasy'))
+            id_ = int(request.POST.get('id_'))
 
-        name = request.POST.get('name')
-        surname = request.POST.get('surname')
-        wiek = int(request.POST.get('wiek'))
-        id_klasy = int(request.POST.get('id_klasy'))
-        id_ucznia = int(request.POST.get('id_ucznia'))
+            insert_data = {
+                "id_klasy": id_klasy,
+                "id_": id_,
+            }
 
-        insert_data = {
-            "name": name,
-            "surname": surname,
-            "wiek": wiek,
-            "id_klasy": id_klasy,
-            "id_ucznia": id_ucznia,
-        }
+            x = Klasy.insert_one(insert_data)
 
-        x = kolekcja.insert_one(insert_data)
+        else:
+            name = request.POST.get('name')
+            surname = request.POST.get('surname')
+            wiek = int(request.POST.get('wiek'))
 
-        return render(request, 'insert.html')
+            insert_data = {
+                "name": name,
+                "surname": surname,
+                "wiek": wiek,
+            }
+
+            x = Uczniowie.insert_one(insert_data)
+
+    return render(request, 'insert.html', context=HTML_data)
+
+def update_mgdb(request):
+
+
+    return render(request, 'update.html')
 
 def drop(request):
     if request.method == "POST":
