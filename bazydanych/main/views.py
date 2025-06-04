@@ -63,18 +63,20 @@ def insert(request):
     l = [klas for klas in Klasy.find({}, {"klasy": 1, "_id": 0})]
     data = []
     for dat in l:
-        data.append(dat.values())
+        data.append(dat.get("klasy"))
 
     HTML_data = {"data": data}
+    print("Dane")
+    print(HTML_data)
 
     if request.method == "POST":
         if request.POST['form_id'] == 'klasa':
-            id_klasy = int(request.POST.get('id_klasy'))
+            id_klasy = request.POST.get('id_klasy')
             id_ = int(request.POST.get('id_'))
 
             insert_data = {
-                "id_klasy": id_klasy,
-                "id_": id_,
+                "klasy": id_klasy,
+                "_id": id_,
             }
 
             x = Klasy.insert_one(insert_data)

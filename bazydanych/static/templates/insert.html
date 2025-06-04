@@ -33,11 +33,12 @@
         <label for="wiek">Wiek: </label>
         <input type="number" id="wiek" name="wiek"><br>
 
-        <select name="klasa">
-        {% for x in HTML_data %}
+        <label for="klasa">Klasa</label>
+        <select name="klasa" id="klasa">
+        {% for x in data %}
             <option value="{{ x }}">{{ x }}</option>
         {% endfor %}
-        </select>
+        </select><br>
 
         <button type="submit">Wyślij</button>
     </form>
