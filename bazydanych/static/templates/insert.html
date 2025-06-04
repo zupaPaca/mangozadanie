@@ -7,20 +7,20 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        <label for="name"></label>
-        <input type="text" id="name" name="name">
+        <label for="name">Imię: </label>
+        <input type="text" id="name" name="name"><br>
 
-        <label for="surname"></label>
-        <input type="text" id="surname" name="surname">
+        <label for="surname">Nazwisko: </label>
+        <input type="text" id="surname" name="surname"><br>
 
-        <label for="wiek"></label>
-        <input type="number" id="wiek" name="wiek">
+        <label for="wiek">Wiek: </label>
+        <input type="number" id="wiek" name="wiek"><br>
 
-        <label for="id_klasy"></label>
-        <input type="number" id="id_klasy" name="id_klasy">
+        <label for="id_klasy">Id Klasy: </label>
+        <input type="number" id="id_klasy" name="id_klasy"><br>
 
-        <label for="id_ucznia"></label>
-        <input type="number" id="id_ucznia" name="id_ucznia">
+        <label for="id_ucznia">Id Ucznia</label>
+        <input type="number" id="id_ucznia" name="id_ucznia"><br>
 
         <button type="submit">Wyślij</button>
     </form>
