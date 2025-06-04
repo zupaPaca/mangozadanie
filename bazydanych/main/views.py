@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from pymongo import MongoClient
-import pprint
+import pymongo
 
 client = MongoClient('localhost', 27017)
 db = client['skibidi']
@@ -60,6 +60,20 @@ def insert(request):
         db = client["skibidi"]
         kolekcja = db['Klasy']
 
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
+        wiek = int(request.POST.get('wiek'))
+        id_klasy = int(request.POST.get('id_klasy'))
+        id_ucznia = int(request.POST.get('id_ucznia'))
 
+        insert_data = {
+            "name": name,
+            "surname": surname,
+            "wiek": wiek,
+            "id_klasy": id_klasy,
+            "id_ucznia": id_ucznia,
+        }
+
+        x = kolekcja.insert_one(insert_data)
 
     return render(request, 'insert.html')
