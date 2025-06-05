@@ -77,6 +77,7 @@ def insert(request):
             insert_data = {
                 "klasy": id_klasy,
                 "_id": id_,
+                "uczniowie": []
             }
 
             x = Klasy.insert_one(insert_data)
@@ -85,14 +86,17 @@ def insert(request):
             name = request.POST.get('name')
             surname = request.POST.get('surname')
             wiek = int(request.POST.get('wiek'))
+            klasa = request.POST["klasa_wyb"]
 
-            insert_data = {
+            uczen_data = {
                 "name": name,
                 "surname": surname,
                 "wiek": wiek,
+                "klasa": klasa
             }
 
-            x = Uczniowie.insert_one(insert_data)
+            x = Uczniowie.insert_one(uczen_data)
+            x = Klasy.update_one({"klasy": klasa}, {"$push": {"uczniowie": uczen_data}})
 
     return render(request, 'insert.html', context=HTML_data)
 

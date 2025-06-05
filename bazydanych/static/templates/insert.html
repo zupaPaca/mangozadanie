@@ -22,6 +22,7 @@
 
     <h2>Dodaj ucznia</h2>
     <form method="post">
+        {% csrf_token %}
         <input type="hidden" name="form_id" value="uczen">
 
         <label for="name">Imię: </label>
@@ -33,8 +34,8 @@
         <label for="wiek">Wiek: </label>
         <input type="number" id="wiek" name="wiek"><br>
 
-        <label for="klasa">Klasa</label>
-        <select name="klasa" id="klasa">
+        <label for="klasa_wyb">Klasa</label>
+        <select name="klasa_wyb" id="klasa_wyb">
         {% for x in data %}
             <option value="{{ x }}">{{ x }}</option>
         {% endfor %}
