@@ -65,9 +65,18 @@ def insert(request):
     for dat in l:
         data.append(dat.get("klasy"))
 
-    HTML_data = {"data": data}
-    print("Dane")
-    print(HTML_data)
+    # Tutaj trzeba jeszcze dodać
+    # Dodanie do HTML 10
+    # przykładowych wyników
+    ten_exmp = [] # Do przetrzymywania 10 wyników
+    for klasy_info in Klasy.find():
+        ten_exmp.append(klasy_info)
+    for uczniowie_info in Uczniowie.find():
+        ten_exmp.append(uczniowie_info)
+
+    ten_exmp = ten_exmp[:10]
+
+    HTML_data = {"data": data, "last": ten_exmp}
 
     if request.method == "POST":
         if request.POST['form_id'] == 'klasa':
@@ -75,7 +84,7 @@ def insert(request):
             id_ = int(request.POST.get('id_'))
 
             insert_data = {
-                "klasy": id_klasy,
+                "NazwaKlasy": id_klasy,
                 "_id": id_,
                 "uczniowie": []
             }
@@ -101,7 +110,12 @@ def insert(request):
     return render(request, 'insert.html', context=HTML_data)
 
 def update_mgdb(request):
+    db = client["skibidi"]
+    Klasy = db['Klasy']
+    Uczniowie = db['Uczniowie']
 
+    if request.method == 'POST':
+        pass
 
     return render(request, 'update.html')
 
