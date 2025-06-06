@@ -21,13 +21,16 @@
           {% endfor %}
       </select>
 
+      <label for="kont">Number: </label>
+      <input type="number" id="kont" name="kont">
+
       <button type="submit">Wyślij</button>
     </form>
     {% for klasy in result %}
     <h2>{{ klasy.NazwaKlasy }}</h2>
 
     <ul>
-        {% for uczen in klasy.Uczniowie %}
+        {% for uczen in uczniowie %}
             <li>{{ uczen.Imie }} {{ uczen.Nazwisko }}</li>
         {% endfor %}
     </ul>

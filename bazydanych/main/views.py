@@ -45,14 +45,20 @@ def wyswietl_dane(request):
 
     if request.method == "POST":
         wybrany = request.POST['wybor']
+        liczba = int(request.POST.get('kont'))
+
         wynik = kolekcja.find({"NazwaKlasy": wybrany})
 
         wynik_list = list(wynik)
+        print(wynik_list[0].get("Uczniowie"))
+        lista_uczn = []
+        for l in wynik_list[0].get("Uczniowie"):
+            lista_uczn.append(l)
 
         for doc in wynik_list:
             doc['_id'] = str(doc['_id'])
 
-        return render(request, 'wyswietl.html', {"result": wynik_list, "opcje" : klasy})
+        return render(request, 'wyswietl.html', {"result": wynik_list, "uczniowie": lista_uczn[:liczba], "opcje" : klasy})
     else:
         return render(request, 'wyswietl.html', {"opcje": klasy})
 
@@ -64,11 +70,8 @@ def insert(request):
     l = [klas for klas in Klasy.find({}, {"NazwaKlasy": 1, "_id": 0})]
     data = []
     for dat in l:
-        data.append(dat.get("klasy"))
+        data.append(dat.get("NazwaKlasy"))
 
-    # Tutaj trzeba jeszcze dodać
-    # Dodanie do HTML 10
-    # przykładowych wyników
     ten_exmp = [] # Do przetrzymywania 10 wyników
     for klasy_info in Klasy.find():
         ten_exmp.append(klasy_info)
@@ -106,7 +109,7 @@ def insert(request):
             }
 
             x = Uczniowie.insert_one(uczen_data)
-            x = Klasy.update_one({"klasy": klasa}, {"$push": {"Uczniowie": uczen_data}})
+            x = Klasy.update_one({"NazwaKlasy": klasa}, {"$push": {"Uczniowie": uczen_data}})
 
     return render(request, 'insert.html', context=HTML_data)
 
