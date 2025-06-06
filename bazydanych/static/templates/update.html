@@ -5,6 +5,39 @@
     <title>Zaktualizuj dane</title>
 </head>
 <body>
+    <h2>Edytuj ucznia</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_id" value="uczen">
 
+        <p>Podaj ucznia do zmiany</p>
+        <label for="imie">Imię: </label>
+        <input type="text" id="imie" name="imie">
+
+        <label for="nazwisko">Nazwisko: </label>
+        <input type="text" id="nazwisko" name="nazwisko">
+
+        <p>Do zmiany</p>
+        <label for="wiek">Wiek: </label>
+        <input type="number" id="wiek" name="wiek"><br><br>
+
+        <button type="submit">Wyślij</button>
+    </form>
+
+    <h2>Edytuj Klasę</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_id" value="klasa">
+
+        <p>Podaj Klasę do zmiany</p>
+        <label for="kla">Imię: </label>
+        <input type="text" id="kla" name="kla">
+
+        <p>Do zmiany</p>
+        <label for="naz"></label>
+        <input type="text" id="naz" name="naz"><br><br>
+
+        <button type="submit">Wyślij</button>
+    </form>
 </body>
 </html>

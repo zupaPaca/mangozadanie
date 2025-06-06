@@ -118,10 +118,34 @@ def update_mgdb(request):
     Klasy = db['Klasy']
     Uczniowie = db['Uczniowie']
 
-    if request.method == 'POST':
-        pass
+    ten_exmp = []  # Do przetrzymywania 10 wyników
+    for klasy_info in Klasy.find():
+        ten_exmp.append(klasy_info)
+    for uczniowie_info in Uczniowie.find():
+        ten_exmp.append(uczniowie_info)
 
-    return render(request, 'update.html')
+    ten_exmp = ten_exmp[:10]
+
+    if request.method == 'POST':
+        if request.POST['form_id'] == "uczen":
+            imie = request.POST.get("imie")
+            nazwisko = request.POST.get("nazwisko")
+            wiek = int(request.POST.get("wiek"))
+
+            location = {"Imie": imie, "Nazwisko": nazwisko}
+            values = {"$set": {"wiek": wiek}}
+
+            x = Uczniowie.update_one(location, values)
+        else:
+            klasa_old = request.POST.get("kla")
+            klasa_new = request.POST.get("naz")
+
+            location = {"NazwaKlasy": klasa_old}
+            values = {"$set": {"NazwaKlasy": klasa_new}}
+
+            x = Klasy.update_one(location, values)
+
+    return render(request, 'update.html', {"exmp": ten_exmp})
 
 def drop(request):
     if request.method == "POST":
