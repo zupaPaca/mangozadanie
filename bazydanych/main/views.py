@@ -57,7 +57,7 @@ def wyswietl_dane(request):
 
 
         if wynik_list:
-            # Dodajemy uczniów
+
             for l in wynik_list[0].get("Uczniowie", []):
                 lista_uczn.append(l)
 
@@ -89,7 +89,7 @@ def insert(request):
     l = [klas for klas in Klasy.find({}, {"NazwaKlasy": 1, "_id": 0})]
     data = [dat.get("NazwaKlasy") for dat in l]
 
-    # Przykładowe dane
+
     ten_exmp = []
     for klasy_info in Klasy.find():
         ten_exmp.append(klasy_info)
