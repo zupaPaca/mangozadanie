@@ -39,12 +39,13 @@ def index(request):
     return render(request, 'index.html')
 
 def wyswietl_dane(request):
+    db = client['skibidi']
+    kolekcja = db['Klasy']
+    klasy = [klasa for klasa in kolekcja.find({}, {"NazwaKlasy": 1, "_id": 0})]
+
     if request.method == "POST":
         wybrany = request.POST['wybor']
-        db = client['skibidi']
-        kolekcja = db['Klasy']
         wynik = kolekcja.find({"NazwaKlasy": wybrany})
-        klasy = kolekcja.find()
 
         wynik_list = list(wynik)
 
@@ -53,14 +54,14 @@ def wyswietl_dane(request):
 
         return render(request, 'wyswietl.html', {"result": wynik_list, "opcje" : klasy})
     else:
-        return render(request, 'wyswietl.html')
+        return render(request, 'wyswietl.html', {"opcje": klasy})
 
 def insert(request):
     db = client["skibidi"]
     Klasy = db['Klasy']
     Uczniowie = db['Uczniowie']
 
-    l = [klas for klas in Klasy.find({}, {"klasy": 1, "_id": 0})]
+    l = [klas for klas in Klasy.find({}, {"NazwaKlasy": 1, "_id": 0})]
     data = []
     for dat in l:
         data.append(dat.get("klasy"))
@@ -76,7 +77,7 @@ def insert(request):
 
     ten_exmp = ten_exmp[:10]
 
-    HTML_data = {"data": data, "last": ten_exmp}
+    HTML_data = {"data": data, "ten_exmp": ten_exmp}
 
     if request.method == "POST":
         if request.POST['form_id'] == 'klasa':
@@ -86,7 +87,7 @@ def insert(request):
             insert_data = {
                 "NazwaKlasy": id_klasy,
                 "_id": id_,
-                "uczniowie": []
+                "Uczniowie": []
             }
 
             x = Klasy.insert_one(insert_data)
@@ -98,14 +99,14 @@ def insert(request):
             klasa = request.POST["klasa_wyb"]
 
             uczen_data = {
-                "name": name,
-                "surname": surname,
+                "Imie": name,
+                "Nazwisko": surname,
                 "wiek": wiek,
-                "klasa": klasa
+                "nr_klasy": klasa
             }
 
             x = Uczniowie.insert_one(uczen_data)
-            x = Klasy.update_one({"klasy": klasa}, {"$push": {"uczniowie": uczen_data}})
+            x = Klasy.update_one({"klasy": klasa}, {"$push": {"Uczniowie": uczen_data}})
 
     return render(request, 'insert.html', context=HTML_data)
 
