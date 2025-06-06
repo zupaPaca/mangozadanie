@@ -7,5 +7,6 @@ urlpatterns = [
     path('insert', views.insert, name='insert'),
     path('update', views.update_mgdb, name='update'),
     path('drop', views.drop, name='drop'),
-    path('drop/uczen/<int:iducznia>', views.dropuczen, name='dropuczen'),
+    path('drop/uczen/<str:imie>/<str:nazwisko>', views.dropuczen, name='dropuczen'),
+    path('drop/nauczyciel/<str:imie>/<str:nazwisko>', views.dropnauczyciel, name='dropuczen'),
 ]

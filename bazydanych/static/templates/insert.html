@@ -1,53 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Dodaj dane</title>
+    <link rel="stylesheet" href="{% static 'styles/styl.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
-<body>
-    <h2>Dodaj Klase</h2>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="form_id" value="klasa">
+<body class="bg-dark text-light">
+    <div class="container">
+        <h2 class="my-4">Dodaj Klasę</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="klasa">
 
-        <label for="id_">Id: </label>
-        <input type="number" id="id_" name="id_"><br>
+            <div class="mb-3">
+                <label for="id_" class="form-label">Id: </label>
+                <input type="number" id="id_" name="id_" class="form-control" required>
+            </div>
 
-        <label for="id_klasy">Id Klasy: </label>
-        <input type="text" id="id_klasy" name="id_klasy"><br>
+            <div class="mb-3">
+                <label for="id_klasy" class="form-label">Id Klasy: </label>
+                <input type="text" id="id_klasy" name="id_klasy" class="form-control" required>
+            </div>
 
-        <button type="submit">Wyślij</button>
-    </form>
-    <br><br>
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
 
-    <h2>Dodaj ucznia</h2>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="form_id" value="uczen">
+        <hr>
 
-        <label for="name">Imię: </label>
-        <input type="text" id="name" name="name"><br>
+        <h2 class="my-4">Dodaj Ucznia</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="uczen">
 
-        <label for="surname">Nazwisko: </label>
-        <input type="text" id="surname" name="surname"><br>
+            <div class="mb-3">
+                <label for="name" class="form-label">Imię: </label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
 
-        <label for="wiek">Wiek: </label>
-        <input type="number" id="wiek" name="wiek"><br>
+            <div class="mb-3">
+                <label for="surname" class="form-label">Nazwisko: </label>
+                <input type="text" id="surname" name="surname" class="form-control" required>
+            </div>
 
-        <label for="klasa_wyb">Klasa</label>
-        <select name="klasa_wyb" id="klasa_wyb">
-        {% for x in data %}
-            <option value="{{ x }}">{{ x }}</option>
-        {% endfor %}
-        </select><br>
+            <div class="mb-3">
+                <label for="wiek" class="form-label">Wiek: </label>
+                <input type="number" id="wiek" name="wiek" class="form-control" required>
+            </div>
 
-        <button type="submit">Wyślij</button>
-    </form>
+            <div class="mb-3">
+                <label for="klasa_wyb" class="form-label">Klasa: </label>
+                <select name="klasa_wyb" id="klasa_wyb" class="form-control" required>
+                    {% for x in data %}
+                        <option value="{{ x }}">{{ x }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-    <ul>
-        {% for var in ten_exmp %}
-        <li>{{ var }}</li>
-        {% endfor %}
-    </ul>
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+
+        <hr>
+
+        <h2 class="my-4">Dodaj Nauczyciela</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="nauczyciel">
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Imię: </label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="surname" class="form-label">Nazwisko: </label>
+                <input type="text" id="surname" name="surname" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="przedmiot" class="form-label">Przedmiot: </label>
+                <input type="text" id="przedmiot" name="przedmiot" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="klasa_wyb" class="form-label">Klasa: </label>
+                <select name="klasa_wyb" id="klasa_wyb" class="form-control" required>
+                    {% for x in data %}
+                        <option value="{{ x }}">{{ x }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+
+        <br><br>
+
+        <a href="{% url 'index' %}" class="btn btn-secondary">Wróć</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>
